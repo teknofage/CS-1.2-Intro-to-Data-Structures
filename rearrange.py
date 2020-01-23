@@ -2,12 +2,12 @@ import sys
 import random 
 
 
-arguments = sys.argv
+arguments = sys.argv[1:]
 
 def rearrange():
     for random_arg in arguments:
-        random_arg = random.randint(0, len(sys.argv)-1)
-    print(arguments[random_arg])
+        random_arg = random.randint(0, len(arguments)-1)
+        print(arguments[random_arg])
     
 rearrange()
 
