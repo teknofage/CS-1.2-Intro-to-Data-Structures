@@ -10,9 +10,13 @@ my_file = open(filename, "r")
 lines = my_file.readlines()
 
 def rearrange():
+    sentence = ""
     for random_arg in range(arguments):
-        random_words = random.randint(1, len(lines) -1)
-        print(lines[random_words])
+        random_index = random.randint(1, len(lines) -1)
+        # print(lines[random_index])
+        random_word = lines[random_index]
+        sentence += " " + random_word
+    print(sentence)
     
 rearrange()
 
