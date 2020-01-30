@@ -1,10 +1,10 @@
-# filename = "blog_post.txt"
-filename = "words.txt"
+filename = "blog_post.txt"
+# filename = "words.txt"
 lines = open(filename, "r")
 
 
 
-def histogram():
+def histogram(lines):
     """takes a source_text argument (can be either a filename or the contents of the file as a string, your choice) and return a histogram data structure that stores each unique word along with the number of times the word appears in the source text."""
     word_histogram = {}
     for word in lines:
@@ -17,7 +17,7 @@ def histogram():
             word_histogram[word] = word_count_value
     
     print (word_histogram)
-histogram()
+histogram(lines)
     
 def unique_words(histogram):
     """takes a histogram argument and returns the total count of unique words in the histogram"""
@@ -32,6 +32,6 @@ def unique_words(histogram):
 def frequency(word, histogram):
     """takes a word and histogram argument and returns the number of times that word appears in a text."""
     frequencies = []
-    for x,y in frequencies:
-        print(x,y)
+    return histogram[word]
+        
     

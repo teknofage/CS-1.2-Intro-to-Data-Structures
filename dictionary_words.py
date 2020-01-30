@@ -9,7 +9,7 @@ filename = "/usr/share/dict/words"
 my_file = open(filename, "r")
 lines = my_file.readlines()
 
-def rearrange():
+def reorder():
     sentence = ""
     for random_arg in range(arguments):
         random_index = random.randint(1, len(lines) -1)
@@ -18,5 +18,5 @@ def rearrange():
         sentence += " " + random_word
     print(sentence)
     
-rearrange()
+reorder()
 
