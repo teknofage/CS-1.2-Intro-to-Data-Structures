@@ -34,4 +34,31 @@ def frequency(word, histogram):
     frequencies = []
     return histogram[word]
         
+def get_index(word, listogram):
+    current_index = 0
+    for item in listogram:
+        if item[0] == word:
+            return current_index
+        else:
+            current_index += 1
+    return -1
     
+def listogram(lines):
+    listogram = []
+    for word in lines:
+        word = word.rstrip()
+        index = get_index(word, listogram)
+        if index == -1:
+            listogram.append([word,1])
+        else:
+            listogram[index][1] += 1
+    return listogram
+
+
+# listogram = []
+# for wor in words:
+#     if word in listogram:
+#     add 1 to count
+# else: 
+#   make a new entry for value 1
+#     listogram.append([word,1])
