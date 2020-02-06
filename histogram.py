@@ -20,7 +20,7 @@ def histogram(lines):
             word_count_value += 1
             word_histogram[word] = word_count_value
     
-    print (word_histogram)
+    return word_histogram
 
 # def get_lines(filename):
 #     with open(filename, "r") as my_file

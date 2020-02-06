@@ -1,6 +1,6 @@
 from flask import Flask
 from histogram import histogram
-# from sample import weighted_sample
+from sample import weighted_sample
 
 
 app = Flask(__name__)
@@ -12,9 +12,14 @@ def generate_words():
     my_file = open("./words.txt", "r")
     lines = my_file.readlines()
     my_histogram = histogram(lines)
+    print(my_histogram)
     
-    # word = weighted_sample(histogram)
-    return "Hello World sneeze!"
+    sentence = ""
+    num_words = 10
+    for i in range (num_words):
+        word = weighted_sample(my_histogram)
+        sentence += " " + word
+    return sentence
 
 if __name__ == '__ main__':
     app.run()
