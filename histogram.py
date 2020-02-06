@@ -1,12 +1,16 @@
-filename = "blog_post.txt"
-# filename = "words.txt"
-lines = open(filename, "r")
+from random import randint
+import sys as sys 
+import random
 
+# filename = "blog_post.txt"
+# filename = "morte_d'arthur(bk1-2).txt"
+filename = "words.txt"
 
 
 def histogram(lines):
     """takes a source_text argument (can be either a filename or the contents of the file as a string, your choice) and return a histogram data structure that stores each unique word along with the number of times the word appears in the source text."""
     word_histogram = {}
+    lines = open(filename, "r")
     for word in lines:
         word = word.rstrip()
         if word not in word_histogram.keys():
@@ -17,7 +21,10 @@ def histogram(lines):
             word_histogram[word] = word_count_value
     
     print (word_histogram)
-histogram(lines)
+
+# def get_lines(filename):
+#     with open(filename, "r") as my_file
+    
     
 def unique_words(histogram):
     """takes a histogram argument and returns the total count of unique words in the histogram"""
@@ -28,11 +35,12 @@ def unique_words(histogram):
             
     print(total_count)
             
-    
+            
 def frequency(word, histogram):
     """takes a word and histogram argument and returns the number of times that word appears in a text."""
     frequencies = []
     return histogram[word]
+        
         
 def get_index(word, listogram):
     current_index = 0
@@ -43,15 +51,19 @@ def get_index(word, listogram):
             current_index += 1
     return -1
     
+    
 def listogram(lines):
+    """list of lists"""
     listogram = []
     for word in lines:
         word = word.rstrip()
         index = get_index(word, listogram)
-        if index == -1:
+        if index == -1: 
+            # first instance
             listogram.append([word,1])
         else:
             listogram[index][1] += 1
+            # update count
     return listogram
 
 
@@ -62,3 +74,6 @@ def listogram(lines):
 # else: 
 #   make a new entry for value 1
 #     listogram.append([word,1])
+
+
+histogram(filename)
