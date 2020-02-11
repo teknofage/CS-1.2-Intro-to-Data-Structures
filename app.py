@@ -1,5 +1,5 @@
 from flask import Flask
-from histogram import histogram
+from dictogram import histogram
 from sample import weighted_sample
 
 
