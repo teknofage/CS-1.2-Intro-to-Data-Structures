@@ -1,3 +1,3 @@
-class Dictogram:
-    
+
+def listogram():
     

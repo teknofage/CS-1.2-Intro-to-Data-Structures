@@ -42,7 +42,7 @@ class Listogram:
         '''searches in the list histogram parameter and returns the index of the inner list that contains the word if present'''
         #TODO: use your get_index function as a starting point to complete this method
         current_index = 0
-        for item in listogram:
+        for item in list_histogram:
             if item[0] == word:
                 return current_index
             else:
@@ -53,13 +53,19 @@ class Listogram:
         '''returns the frequency or count of the given word in the list of lists histogram'''
         #TODO: use your frequency and get_index function as a starting point to complete this method
         #You will need to adapt it a little bit to work with listogram
-        pass
+        frequencies = []
+        return self.list_histogram[word]
         
     def unique_words(self):
         '''returns the number of unique words in the list of lists histogram'''
         #TODO: use your unique words function as a starting point to complete this method
         #You will need to adapt it a little bit to work with listogram
-        pass
+        """takes a histogram argument and returns the total count of unique words in the histogram"""
+        total_count = 0
+        for inner_list in self.list_histogram:
+            total_count +=1
+            
+        print(total_count)
 
 
     def sample(self):
@@ -67,6 +73,14 @@ class Listogram:
 
         #TODO: use your sample function as a starting point to complete this method 
         #You will need to adapt it a little bit to work with listogram
+        """return a word from this histogram, randomly sampled by weighting each word's probability of being chosen by its observed frequency."""
+        tokens = sum([count for word, count in histogram.items()]) # Count total tokens
+        dart = randint(1, tokens) # throw a dart at the number line
+        fence = 0 # border of where each word splits the number line
+        for word, count in histogram.items(): # loop over each word and its count
+            fence += count # Move this word's fence broder to the right
+            if fence >= dart: # Check if this word's fence is past the dart
+                return word # Fence is past the dart, so choose this word
 
 def print_listogram(word_list):
     '''Creates a list based histogram (listogram) and then prints out its properties and samples from it'''
