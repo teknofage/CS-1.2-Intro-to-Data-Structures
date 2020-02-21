@@ -72,16 +72,12 @@ class Dictogram(dict):
 
     def sample(self):
         '''Randomly samples from the dictionary histogram based on the frequency, returns a word'''
-
-        #TODO: use your sample function as a starting point to complete this method 
-        text = self.histogram
-        tokens = sum([count for word, count in self.histogram.items()]) # Count total tokens
-        dart = random.randint(0, sum(text.values())) # throw a dart at the number line
-        fence = 0 # border of where each word splits the number line
-        for word, count in self.histogram.items(): # loop over each word and its count
-            fence += count # Move this word's fence broder to the right
-            if fence >= dart: # Check if this word's fence is past the dart
-                return word # Fence is past the dart, so choose this word
+        random_num = random.randint(0, self.tokens-1)  # gets random number
+        weight=0
+        for key, value in self.items():
+            weight += value
+            if weight > random_num:
+                return key
 
 def print_dictogram(word_list):
     '''Creates a dictionary based histogram (dictogram) and then prints out its properties and samples from it'''

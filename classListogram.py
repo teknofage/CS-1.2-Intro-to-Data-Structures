@@ -4,63 +4,68 @@ import random
 
 class Listogram(list):
 
-    def __init__(self, word_list):
+    def __init__(self, word_list=None):
         '''Initializes the listogram properties'''
         super(Listogram, self).__init__()
         
-        self.histogram = {}
-        self.word_list = word_list
+        # self.histogram = {}
+        # self.word_list = word_list
        
-        self.list_histogram = self.build_listogram()
+        # self.list_histogram = self.build_listogram()
 
-        self.tokens = self.get_num_tokens()
-        self.types = self.unique_words()
+        self.tokens = 0
+        self.types = 0
 
+        if word_list is not None:
+            for word in word_list:
+                self.add_count(word)
+                
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
         
-        self.tokens += count
-        if word in self.keys():
-            self[word] += count
+        index = self.get_index(word)
+        if index is not None:
+            old_count = self[index][1]
+            self[index] = [word, old_count + count]
+            self.tokens += count
         else:
-            self[word] = count 
+            self.append((word, count)) 
+            self.tokens += count
             self.types += 1
+        
+    # def build_listogram(self, filename): 
+    #     '''Creates a histogram list of lists using the word_list property and returns it'''
 
-    def build_listogram(self): 
-        '''Creates a histogram list of lists using the word_list property and returns it'''
+    #     # filename = "words.txt"
+    #     listogram = []
+    #     self.lines = open(filename, "r")
+    #     for word in self.lines:
+    #         word = word.rstrip()
+    #         index = self.get_index(word, listogram)
+    #         if index == -1: 
+    #             # first instance
+    #             listogram.append([word,1])
+    #         else:
+    #             listogram[index][1] += 1
+    #             # update count
+    #     return listogram
 
-        filename = "words.txt"
-        listogram = []
-        self.lines = open(filename, "r")
-        for word in self.lines:
-            word = word.rstrip()
-            index = self.get_index(word, listogram)
-            if index == -1: 
-                # first instance
-                listogram.append([word,1])
-            else:
-                listogram[index][1] += 1
-                # update count
-        return listogram
+    # def get_num_tokens(self):
+    #     '''gets the number of tokens in the listogram'''
 
-    def get_num_tokens(self):
-        '''gets the number of tokens in the listogram'''
+    #     tokens = 0
+    #     for item in self.list_histogram:
+    #         tokens += item[1]
+    #     return tokens
 
-        tokens = 0
-        for item in self.list_histogram:
-            tokens += item[1]
-        return tokens
-
-    def get_index(self, word, list_histogram):
+    def get_index(self, word):
         '''searches in the list histogram parameter and returns the index of the inner list that contains the word if present'''
-        #TODO: use your get_index function as a starting point to complete this method
-        current_index = 0
-        for item in list_histogram:
+        
+        for index, item in enumerate(self):
             if item[0] == word:
-                return current_index
-            else:
-                current_index += 1
-        return -1
+                print(f"index: {index}, word: {word}")
+                return index
+        return None
 
     def frequency(self, word):
         '''returns the frequency or count of the given word in the list of lists histogram'''
@@ -72,7 +77,6 @@ class Listogram(list):
         
     def unique_words(self):
         '''returns the number of unique words in the list of lists histogram'''
-
         """takes a histogram argument and returns the total count of unique words in the histogram"""
         total_count = 0
         for inner_list in self.list_histogram:
@@ -85,11 +89,12 @@ class Listogram(list):
         '''Randomly samples from the list of list histogram based on the frequency, returns a word'''
 
         """return a word from this histogram, randomly sampled by weighting each word's probability of being chosen by its observed frequency."""
-        text = self.histogram
-        tokens = sum([count for word, count in self.histogram.items()]) # Count total tokens
+        text = self
+        # tokens = sum([count for word, count in self]) # Count total tokens
+        total_tokens = self.tokens
         dart = random.randint(0, sum(text.values())) # throw a dart at the number line
         fence = 0 # border of where each word splits the number line
-        for word, count in self.histogram.items(): # loop over each word and its count
+        for count, word in self: # loop over each word and its count
             fence += count # Move this word's fence broder to the right
             if fence >= dart: # Check if this word's fence is past the dart
                 return word # Fence is past the dart, so choose this word
@@ -102,7 +107,7 @@ def print_listogram(word_list):
     print('word list: {}'.format(word_list))
     # Create a dictogram and display its contents
     listogram = Listogram(word_list)
-    print('listogram: {}'.format(listogram.list_histogram))
+    print('listogram: {}'.format(listogram))
     print('{} tokens, {} types'.format(listogram.tokens, listogram.types))
     for word in word_list[-2:]:
         freq = listogram.frequency(word)
@@ -150,3 +155,7 @@ def print_listogram_samples(listogram):
     print()
 
 print_listogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
+# word_list = ['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish']
+
+# obj = Listogram(word_list)
+# print(obj)
