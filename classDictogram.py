@@ -19,7 +19,6 @@ class Dictogram(dict):
                 
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
-        # TODO: Increase word frequency by count
         
         self.tokens += count
         if word in self.keys():
@@ -31,7 +30,6 @@ class Dictogram(dict):
     def build_dictogram(self, lines): 
         '''Creates a histogram dictionary using the word_list property and returns it'''
 
-        #TODO: use your histogram function as a starting point to complete this method
         filename = "words.txt"
         word_frequency = {}
         self.word_histogram = {}
