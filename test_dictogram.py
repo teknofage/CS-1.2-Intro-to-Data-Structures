@@ -6,13 +6,13 @@ fish_words = ['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish']
 fish_dict = {'one': 1, 'fish': 4, 'two': 1, 'red': 1, 'blue': 1}
 
 def test_entries():
-    dictogram = Dictogram(fish_words).dictionary_histogram
+    dictogram = Dictogram(fish_words)
     # Verify histogram as dictionary of entries like {word: count}
     assert len(dictogram) == 5
     assert len(dictogram) == len(fish_dict)
 
 def test_contains():
-    dictogram = Dictogram(fish_words).dictionary_histogram
+    dictogram = Dictogram(fish_words)
     # All of these words should be found
     for word in fish_words:
         assert word in dictogram
@@ -49,7 +49,7 @@ def test_sample():
     # Create a histogram to count frequency of each word
     samples_hist = Dictogram(samples_list)
     # Check each word in original histogram
-    for word, count in dictogram.dictionary_histogram.items():
+    for word, count in dictogram.items():
         # Calculate word's observed frequency
         observed_freq = count / dictogram.tokens
         # Calculate word's sampled frequency

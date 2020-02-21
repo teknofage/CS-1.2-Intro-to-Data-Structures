@@ -7,12 +7,8 @@ class Listogram(list):
     def __init__(self, word_list=None):
         '''Initializes the listogram properties'''
         super(Listogram, self).__init__()
-        
-        # self.histogram = {}
-        # self.word_list = word_list
-       
-        # self.list_histogram = self.build_listogram()
 
+        # self.list_histogram = add
         self.tokens = 0
         self.types = 0
 
@@ -32,38 +28,12 @@ class Listogram(list):
             self.append((word, count)) 
             self.tokens += count
             self.types += 1
-        
-    # def build_listogram(self, filename): 
-    #     '''Creates a histogram list of lists using the word_list property and returns it'''
-
-    #     # filename = "words.txt"
-    #     listogram = []
-    #     self.lines = open(filename, "r")
-    #     for word in self.lines:
-    #         word = word.rstrip()
-    #         index = self.get_index(word, listogram)
-    #         if index == -1: 
-    #             # first instance
-    #             listogram.append([word,1])
-    #         else:
-    #             listogram[index][1] += 1
-    #             # update count
-    #     return listogram
-
-    # def get_num_tokens(self):
-    #     '''gets the number of tokens in the listogram'''
-
-    #     tokens = 0
-    #     for item in self.list_histogram:
-    #         tokens += item[1]
-    #     return tokens
 
     def get_index(self, word):
         '''searches in the list histogram parameter and returns the index of the inner list that contains the word if present'''
         
         for index, item in enumerate(self):
             if item[0] == word:
-                print(f"index: {index}, word: {word}")
                 return index
         return None
 
@@ -89,15 +59,15 @@ class Listogram(list):
         '''Randomly samples from the list of list histogram based on the frequency, returns a word'''
 
         """return a word from this histogram, randomly sampled by weighting each word's probability of being chosen by its observed frequency."""
-        text = self
-        # tokens = sum([count for word, count in self]) # Count total tokens
-        total_tokens = self.tokens
-        dart = random.randint(0, sum(text.values())) # throw a dart at the number line
-        fence = 0 # border of where each word splits the number line
-        for count, word in self: # loop over each word and its count
-            fence += count # Move this word's fence broder to the right
-            if fence >= dart: # Check if this word's fence is past the dart
-                return word # Fence is past the dart, so choose this word
+            
+        random_num = random.randint(0, self.tokens-1)  # gets random number
+        weight=0
+        for index, item in enumerate(self):
+            # print(f"occur: {item}")
+            weight += item[1]
+            
+            if weight > random_num:
+                return item[0]
 
 def print_listogram(word_list):
     '''Creates a list based histogram (listogram) and then prints out its properties and samples from it'''
@@ -122,7 +92,7 @@ def print_listogram_samples(listogram):
     # Sample the histogram 10,000 times and count frequency of results
     samples_list = [listogram.sample() for _ in range(10000)]
     samples_hist = Listogram(samples_list)
-    print('samples: {}'.format(samples_hist.list_histogram))
+    print('samples: {}'.format(samples_hist))
     print()
     print('Sampled frequency and error from observed frequency:')
     header = '| word type | observed freq | sampled freq  |  error  |'
@@ -136,7 +106,7 @@ def print_listogram_samples(listogram):
     red = '\033[31m'
     reset = '\033[m'
     # Check each word in original histogram
-    for item in listogram.list_histogram:
+    for item in listogram:
         word = item[0]
         count = item[1]
         # Calculate word's observed frequency
@@ -155,7 +125,3 @@ def print_listogram_samples(listogram):
     print()
 
 print_listogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
-# word_list = ['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish']
-
-# obj = Listogram(word_list)
-# print(obj)

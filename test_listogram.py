@@ -10,8 +10,8 @@ def test_entries():
     # you should modify the fish_list fixture above and/or this test (only)
     listogram = Listogram(fish_words)
     # Verify histogram as list of entries like [(word, count)]
-    assert len(listogram.list_histogram) == 5
-    assert len(listogram.list_histogram) == len(fish_list)  # Ignore item order
+    assert len(listogram) == 5
+    assert len(listogram) == len(fish_list)  # Ignore item order
 
 def test_frequency():
     histogram = Listogram(fish_words)
@@ -42,7 +42,7 @@ def test_sample():
     # Create a histogram to count frequency of each word
     samples_hist = Listogram(samples_list)
     # Check each word in original histogram
-    for item in listogram.list_histogram:
+    for item in listogram:
         word = item[0]
         count = item[1]
         # Calculate word's observed frequency
