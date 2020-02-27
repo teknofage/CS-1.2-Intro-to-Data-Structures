@@ -19,6 +19,7 @@ class LinkedList(object):
         """Initialize this linked list and append the given items, if any."""
         self.head = None  # First node
         self.tail = None  # Last node
+        self.size = 0
         # Append given items
         if items is not None:
             for item in items:
@@ -67,21 +68,23 @@ class LinkedList(object):
             current_node = current_node.next
             
         return count
+        # return self.size
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Create new node to hold given item
         # TODO: Append node after tail, if it exists
-        if not isinstance(item, Node):
-            item = Node(item)
+        new_node = Node(item)
+        
 
-        if self.head is None:
-            self.head = item
+        if self.tail is None:
+            self.head = new_node
+            self.tail = new_node
         else:
-            self.tail.next = item
+            self.tail.next = new_node
 
-        self.tail = item
+        self.tail = new_node
             
         return
 
@@ -90,9 +93,11 @@ class LinkedList(object):
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Create new node to hold given item
         # TODO: Prepend node before head, if it exists
-        new_node = Node(data)
-        new_node.ref = self.start_node
-        self.start_node = new_node
+        new_node = Node(item)
+        new_node.next = self.head
+        self.head = new_node
+        if self.tail == None:
+            self.tail = new_node
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
@@ -148,6 +153,32 @@ class LinkedList(object):
             current_id = current_id + 1
         
         return
+
+        # if self.head is None:
+        #     return None
+        # else:
+        #     cur  = self.head
+        #     prev = None
+        #     while cur.item != item and cur.next is not None:
+        #         prev = cur
+        #         cur = cur.next
+
+        #     # when found
+        #     if cur.item == item:
+        #         # if head
+        #         if cur == self.head:
+        #             if cur.next is None:
+        #                 self.head = None
+        #             else:
+        #                 self.head = cur.next
+        #         else:
+        #             if cur.next is None:
+        #                 prev.next = None
+        #             else:
+        #                 prev.next = cur.next
+        #     else:
+        #         return None 
+
 
 def test_linked_list():
     ll = LinkedList()
