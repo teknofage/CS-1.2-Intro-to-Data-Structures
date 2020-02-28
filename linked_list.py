@@ -107,22 +107,17 @@ class LinkedList(object):
         # TODO: Check if node's data satisfies given quality function
         # define current_node
         current_node = self.head
-        
         # define position
         node_id = 1
-        
         # define list of results
         results = []
         
-        while current_node is not None:
-            if current_node.has_value(value):
-                results.append(node_id)
-                
-            # jump to the linked node
+        while current_node != None:
+            if quality(current_node.data) == True:
+                #results.append(node_id)
+                return current_node.data
             current_node = current_node.next
-            node_id = node_id + 1
-        
-        return results
+        return None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -133,52 +128,37 @@ class LinkedList(object):
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
 
-        current_id = 1
-        current_node = self.head
-        previous_node = None
-        
-        while current_node is not None:
-            if current_id == item_id:
-                # if this is the first node (head)
-                if previous_node is not None:
-                    previous_node.next = current_node.next
-                else:
-                    self.head = current_node.next
-                    # we don't have to look any further
-                    return
+        if self.head != None:
+            if self.head == self.tail and self.head.data == item:
+                self.head = None
+                self.tail = None
+                return
+        else:
+            raise ValueError('Item not found: {}'.format(item))
             
-            # needed for the next iteration
-            previous_node = current_node
-            current_node = current_node.next
-            current_id = current_id + 1
+        current = self.head.next
+        previous = self.head
         
-        return
-
-        # if self.head is None:
-        #     return None
-        # else:
-        #     cur  = self.head
-        #     prev = None
-        #     while cur.item != item and cur.next is not None:
-        #         prev = cur
-        #         cur = cur.next
-
-        #     # when found
-        #     if cur.item == item:
-        #         # if head
-        #         if cur == self.head:
-        #             if cur.next is None:
-        #                 self.head = None
-        #             else:
-        #                 self.head = cur.next
-        #         else:
-        #             if cur.next is None:
-        #                 prev.next = None
-        #             else:
-        #                 prev.next = cur.next
-        #     else:
-        #         return None 
-
+        while current != None:
+            
+            if self.head.data == item: #item in the head
+                if self.head.next != None:
+                    self.head = self.head.next
+                else:
+                    self.head = None
+                return item
+            elif self.head != None: #item elsewhere
+                print("Enter elsewhere")
+                print("Current data", current.data)
+                if current.data == item:
+                    if current == self.tail and previous != None:
+                        self.tail = previous
+                    previous.next = current.next
+                    return item
+            
+            previous = current
+            current = current.next
+        raise ValueError('Item not found: {}'.format(item))
 
 def test_linked_list():
     ll = LinkedList()
