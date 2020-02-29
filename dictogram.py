@@ -3,8 +3,8 @@ import sys as sys
 import random
 
 # filename = "blog_post.txt"
-# filename = "morte_d'arthur(bk1-2).txt"
-filename = "words.txt"
+filename = "morte_d'arthur(bk1-2).txt"
+# filename = "words.txt"
 
 
 def histogram(lines):

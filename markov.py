@@ -24,6 +24,7 @@ class MarkovChain:
                 histogram = markov_chain[current_word]
                 #add to count
                 histogram.histogram[next_word] = histogram.histogram.get(next_word, 0) + 1
+                
             else: #first entry
                 markov_chain[current_word] = Dictogram([next_word])
 
@@ -32,8 +33,11 @@ class MarkovChain:
     def walk(self, num_words):
         #TODO: generate a sentence num_words long using the markov chain
         sentence = [self.first_word]
+        print(self.markov_chain)
         for _ in range(num_words-1):
+            print(self.markov_chain[sentence[-1]].sample())
             sentence.append(self.markov_chain[sentence[-1]].sample())
+        print(sentence)
         return ' '.join(sentence)
 
     def print_chain(self):
