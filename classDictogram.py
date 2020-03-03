@@ -1,31 +1,19 @@
 from __future__ import division, print_function
 import random
 
-class Dictogram(dict):
+class Dictogram:
 
     def __init__(self, word_list=None):
         '''Initializes the dictogram properties'''
         super(Dictogram, self).__init__()
         self.word_list = word_list
         self.histogram = {}
-        # self.dictionary_histogram = self.build_dictogram()
+        self.histogram = self.build_dictogram(word_list)
 
-        self.tokens = 0
-        self.types = 0
+        self.tokens = sum(self.histogram.values())
+        self.types = len(self.histogram.keys())
         
-        if word_list is not None:
-            for word in word_list:
-                self.add_count(word)
-                
-    def add_count(self, word, count=1):
-        """Increase frequency count of given word by given count amount."""
-        
-        self.tokens += count
-        if word in self.keys():
-            self[word] += count
-        else:
-            self[word] = count 
-            self.types += 1
+            
 
     def build_dictogram(self, lines): 
         '''Creates a histogram dictionary using the word_list property and returns it'''
@@ -35,7 +23,7 @@ class Dictogram(dict):
         self.word_histogram = {}
         self.lines = open(filename, "r")
         
-        for word in lines:
+        for word in self.word_list:
             word = word.rstrip()
             if word not in self.word_histogram.keys():
                 self.word_histogram[word]=1
@@ -49,15 +37,11 @@ class Dictogram(dict):
     def frequency(self, word):
         '''returns the frequency or count of the given word in the dictionary histogram, or 0 if the word is not found'''
         frequencies = []
-        # if word in self.word_histogram:
-        #     return self.histogram[word]
-        # else:
-        #     return 0
         
-        for key, value in self.items():
-            if word == key:
-                return value
-        return 0
+        # for key, value in self.items():
+        #     if word == key:
+        #         return value
+        return self.histogram[word]
 
     def unique_words(self):
         '''returns the number of unique words in the dictionary histogram'''
@@ -74,7 +58,7 @@ class Dictogram(dict):
         '''Randomly samples from the dictionary histogram based on the frequency, returns a word'''
         random_num = random.randint(0, self.tokens-1)  # gets random number
         weight=0
-        for key, value in self.items():
+        for key, value in self.histogram.items():
             weight += value
             if weight > random_num:
                 return key
@@ -132,4 +116,4 @@ def print_dictogram_samples(dictogram):
     print(divider)
     print()
 
-print_dictogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
+# print_dictogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])

@@ -8,8 +8,8 @@ class MarkovChain:
         #The Markov chain will be a dictionary of dictionaries
         #Example: for "one fish two fish red fish blue fish"
         #{"one": {fish:1}, "fish": {"two":1, "red":1, "blue":1}, "two": {"fish":1}, "red": {"fish":1}, "blue": {"fish:1"}}
-         self.markov_chain = self.build_markov(word_list)
-         self.first_word = list(self.markov_chain.keys())[0]
+        self.markov_chain = self.build_markov(word_list)
+        self.first_word = list(self.markov_chain.keys())[0]
 
     def build_markov(self, word_list):
         markov_chain = {}
@@ -24,6 +24,7 @@ class MarkovChain:
                 histogram = markov_chain[current_word]
                 #add to count
                 histogram.histogram[next_word] = histogram.histogram.get(next_word, 0) + 1
+                histogram.tokens += 1
                 
             else: #first entry
                 markov_chain[current_word] = Dictogram([next_word])
